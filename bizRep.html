@@ -1,0 +1,106 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="bizStyle.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<script>
+    firstNum = 0;
+    secondNum = 0;
+    costs = 0;
+    currentProfit = 0;
+    percentIncrease = 0;
+    totalPercent = 0;
+    weeklyProjection = 0;
+    monthlyProjection = 0;
+    
+    function reportCheck(){
+        //gets numbers from text boxes
+        firstNum = Number(document.getElementById("e1").value);
+        secondNum = Number(document.getElementById("e2").value);
+        costs = Number(document.getElementById("spentmoney").value);
+        
+        //checks to see if inputs are numbers
+        if (Number.isNaN(firstNum)){
+            alert("All boxes must be numbers!")
+        }
+        
+        else if (Number.isNaN(secondNum)){
+            alert("All boxes must be numbers!")
+        }
+        
+        else if ((Number.isNaN(costs))){
+            alert("All boxes must be numbers!")
+        }
+        
+        else {
+            makeReport(firstNum, secondNum, costs)
+        }
+        
+        
+        
+    }
+    
+    function makeReport(){
+    //calculates profits from inputs
+
+        percentIncrease = (secondNum - firstNum) / firstNum;
+    
+        if (percentIncrease >= 0){
+            weeklyProjection = (secondNum * ((1 + percentIncrease)) - costs) * 7;
+            monthlyProjection = (secondNum * ((1 + percentIncrease)) - costs) * 31;
+        }
+        
+        else{
+            weeklyProjection = (secondNum * (percentIncrease - 1) - costs) * 7;
+            monthlyProjection = (secondNum * (percentIncrease - 1) - costs) * 31;
+        }
+        
+        currentProfit = secondNum - costs;
+        totalPercent = percentIncrease * 100;
+    
+        alert("Current Profit: $" + currentProfit.toFixed(2) + "\nPercent Change: " + totalPercent.toFixed(2) + "%\nWeekly Profit Projection: $" + weeklyProjection.toFixed(2) + "\nMonthly Profit Projection: $" + monthlyProjection.toFixed(2))
+    }
+
+</script>    
+    
+<bod>
+    <div id="myHeader">
+        <h1>BizAssist</h1>
+        <h4>Buisness Reports</h4>
+
+        <!--Buttons for navigation-->
+        <a href="inventory.html" class="button">Inventory</a>
+        <a href="sales.html" class="button">Sales</a>
+        <a href="cusTrack.html" class="button">Customers</a>
+        <a href="bizRep.html" class="button">Reports</a>
+
+    </div>
+
+    <!--Lab Report explanation and instructions-->
+    <div id="container">
+        <div class="grid-layout">
+            <div class="text-content">
+                <h1>Manual Lab Report</h1>  
+                <p>Input the profits at the start of a certain period, the profits at the end of a certain period, and your current costs (such as bills and wages). You will then recieve a report of your current profits based off of the second costs, the percent change of your earnings, and projected profits for the next week and month based on the percentage.</p>
+            </div>
+            
+            <!--Lab Report Required Info-->
+            <div class="text-content">
+                <h2>Report Information</h2>
+                <label for="e1">Starting Earnings:</label> <br>
+                <input type="text" id="e1" name="e1" placeholder="Enter a number"><br><br>
+                <label for="e2">Current Earnings:</label> <br>
+                <input type="text" id="e2" name="e2" placeholder="Enter a number"> <br><br>
+                <label for="spentmoney">Amount Spent:</label> <br>
+                <input type="text" id="spentmoney" name="message" placeholder="Enter a number"> <br>
+
+                <input type="button" value="Create Report" onclick="reportCheck()">
+            </div>
+        </div>
+    </div>
+    
+</bod>
+
+</html>

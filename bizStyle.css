@@ -1,0 +1,68 @@
+body {
+    background-color: white;
+}
+
+a.button {
+    padding: 7px;
+    border: 2.5px outset buttonborder;
+    border-radius: 7px;
+    color: 	white;
+    background-color: #49acad;
+    text-decoration: none;
+    margin: 15px;
+    display: inline-block;
+    position:relative;
+    bottom: 70px;
+    left:75%;
+}
+
+#myHeader {
+    height: 100px;
+    background-color: transparent;
+    color: 	black;
+    padding: 10px;
+    position: relative;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#container {
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 50px;
+    background-color: whitesmoke;
+    font-family: sans-serif;
+    padding:10px
+}
+
+.grid-layout{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 5px;
+    justify-items: center;
+    align-items: center;
+}
+
+.text-content{
+    max-width: 600px;
+}
+
+.customer-image{
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: auto;
+    padding:0;
+    justify-items: center;
+}
+
+#reason{
+    width: 185px;
+}
+
+#msg{
+    width: 300px;
+    height: 100px;
+}
+

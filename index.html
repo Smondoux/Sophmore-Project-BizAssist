@@ -1,0 +1,53 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="bizStyle.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<bod>
+    <div id="myHeader">
+        <h1>BizAssist</h1>
+        <h4>Customer contact page</h4>
+
+        <!--Buttons for navigation-->
+        <a href="inventory.html" class="button">Inventory</a>
+        <a href="sales.html" class="button">Sales</a>
+        <a href="cusTrack.html" class="button">Customers</a>
+        <a href="bizRep.html" class="button">Reports</a>
+
+    </div>
+
+    <!--Beta information and a picture of a customer-->
+    <div id="container">
+        <div class="grid-layout">
+            <div class="text-content">
+                <h1>Customer Information</h1>  
+                <p>If customer is a singular person, then add some light information<br>
+                about personality, weaknesses, and strengths for marketability<br>
+                (information to sell a product to this person from a cold call), as<br>
+                well as information used for businesses and representatives.</p>
+                <br>
+                <p>If business or representative, add business information so cold<br>
+                caller can better gauge how much money the business has so<br>
+                you can give a "special deal." Don't forget to add their email</p>
+            </div>
+                <img src="images/cus1.jpg" class="customer-image">
+            
+            <!--Contact boxes-->
+            <div class="text-content">
+                <h2>Contact Them</h2>
+                <label for="reason">Customer Name:</label> <br>
+                <input type="text" id="reason" name="reason" placeholder="Enter a reason for your email"><br><br>
+
+                <label for="msg">Information:</label> <br>
+                <input type="text" id="msg" name="message" placeholder="Enter what you want to tell the customer"> <br>
+
+                <input type="button" value="Submit" onclick="alert('Unfinished')">
+            </div>
+        </div>
+    </div>
+    
+</bod>
+
+</html>

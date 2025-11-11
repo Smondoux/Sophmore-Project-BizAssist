@@ -134,12 +134,23 @@ if (document.getElementById("resetBtn")) {
   });
 }
 
-
-// Initial render
 renderInventory();
+
+window.decreaseInventory = function(productName, amountSold) {
+
+    const item = inventory.find(i => i.name.toLowerCase() === productName.toLowerCase());
+    if (!item) return; 
+    item.quantity -= amountSold;
+    if (item.quantity < 0) item.quantity = 0; 
+    saveInventory();
+    renderInventory();
+};
+
 
 window.addEventListener("focus", () => {
     inventory = JSON.parse(localStorage.getItem("inventory")) || [];
     renderInventory();
 });
+});
+
 

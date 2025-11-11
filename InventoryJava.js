@@ -8,22 +8,64 @@ function renderInventory() {
   const grid = document.getElementById("productGrid");
   grid.innerHTML = "";
 
-  inventory.forEach(item => {
-    const card = document.createElement("div");
-    card.classList.add("product-card");
+  if (inventory.length === 0) {
+    grid.innerHTML = "<p>No items in inventory.</p>";
+    return;
+  }
 
-    card.innerHTML = `
-      <h3>${item.name}</h3>
-      <p>Quantity: ${item.quantity}</p>
-      <button onclick="increaseItem('${item.name}')">+ Add Stock</button>
-      <button onclick="reduceItem('${item.name}')">- Remove Stock</button>
-    `;
-    grid.appendChild(card);
+  const categories = {};
+  inventory.forEach(item => {
+    const cat = item.category || "Other";
+    if (!categories[cat]) categories[cat] = [];
+    categories[cat].push(item);
+  });
+
+  const sortedCategories = Object.keys(categories).sort();
+
+  sortedCategories.forEach(catName => {
+    const section = document.createElement("div");
+    section.classList.add("category-section");
+
+    const title = document.createElement("h2");
+    title.textContent = catName;
+    section.appendChild(title);
+
+    const itemsContainer = document.createElement("div");
+    itemsContainer.classList.add("category-items");
+
+    categories[catName].forEach(item => {
+      const card = document.createElement("div");
+      card.classList.add("product-card");
+
+      let catClass = "other";
+      const category = (item.category || "").toLowerCase();
+      if (category === "produce") catClass = "produce";
+      else if (category === "dairy") catClass = "dairy";
+      else if (category === "meat") catClass = "meat";
+      else if (category === "bakery") catClass = "bakery";
+      else if (category === "pantry") catClass = "pantry";
+      else if (category === "beverages") catClass = "beverages";
+
+      card.classList.add(catClass);
+
+      card.innerHTML = `
+        <h3>${item.name}</h3>
+        <p>Quantity: ${item.quantity}</p>
+        <button onclick="increaseItem('${item.name}')">+ Add Stock</button>
+        <button onclick="reduceItem('${item.name}')">- Remove Stock</button>
+      `;
+
+      itemsContainer.appendChild(card);
+    });
+
+    section.appendChild(itemsContainer);
+    grid.appendChild(section);
   });
 }
 
 function addItem() {
   const name = prompt("Enter product name:");
+  const category = prompt("Enter category (Produce, Dairy, Meat, Bakery, Pantry, Beverages):") || "Other";
   const quantity = parseInt(prompt("Enter quantity:"), 10);
 
   if (!name || isNaN(quantity) || quantity <= 0) {
@@ -34,8 +76,9 @@ function addItem() {
   const existing = inventory.find(i => i.name.toLowerCase() === name.toLowerCase());
   if (existing) {
     existing.quantity += quantity;
+    if (!existing.category) existing.category = category;
   } else {
-    inventory.push({ name, quantity });
+    inventory.push({ name, category, quantity });
   }
 
   saveInventory();
@@ -68,6 +111,22 @@ function resetInventory() {
     saveInventory();
     renderInventory();
   }
+}
+
+// New function to decrease stock based on a sale
+function decreaseInventory(productName, soldQuantity) {
+  if (!productName || isNaN(soldQuantity) || soldQuantity <= 0) return;
+
+  const item = inventory.find(i => i.name.toLowerCase() === productName.toLowerCase());
+  if (!item) return alert(`Item "${productName}" not found in inventory`);
+
+  if (soldQuantity > item.quantity) {
+    return alert(`Cannot sell ${soldQuantity} units. Only ${item.quantity} in stock.`);
+  }
+
+  item.quantity -= soldQuantity;
+  saveInventory();
+  renderInventory();
 }
 
 document.getElementById("addItemBtn").addEventListener("click", addItem);

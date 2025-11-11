@@ -1,116 +1,29 @@
 <html lang="en">
-  
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inventory System</title>
-  
-<style>
-  body { font-family: Arial, sans-serif; padding: 20px; }
-  #controls { margin-bottom: 20px; }
-  #productGrid { display: flex; flex-wrap: wrap; gap: 15px; }
-  .product-card { border: 1px solid #ccc; padding: 15px; width: 200px; border-radius: 8px; }
-  .product-card button { margin-top: 5px; margin-right: 5px; padding: 5px 10px; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inventory System</title>
+  <link rel="stylesheet" href="InventoryStyle.css" />
 </head>
+
 <body>
-       <div id="myHeader">
-        <h1>BizAssist</h1>
-        <h4>Inventory</h4>
+  <div id="myHeader">
+    <h1>BizAssist</h1>
+    <h4>Inventory</h4>
 
-        <!--Buttons for navigation-->
-        <a href="Inventory.html" class="button">Inventory</a>
-        <a href="sales.html" class="button">Sales</a>
-        <a href="index.html" class="button">Customers</a>
-        <a href="bizRep.html" class="button">Reports</a>
+    <a href="Inventory.html" class="button">Inventory</a>
+    <a href="sales.html" class="button">Sales</a>
+    <a href="index.html" class="button">Customers</a>
+    <a href="bizRep.html" class="button">Reports</a>
+  </div>
 
-      </div>
-<div id="controls">
-  <button id="addItemBtn">Add Item</button>
-  <button id="resetBtn">Reset Inventory</button>
-</div>
+  <div id="controls">
+    <button id="addItemBtn">Add Item</button>
+    <button id="resetBtn">Reset Inventory</button>
+  </div>
 
-<div id="productGrid"></div>
+  <div id="productGrid"></div>
 
-<script>
-let inventory = JSON.parse(localStorage.getItem("inventory")) || [];
-
-function saveInventory() {
-  localStorage.setItem("inventory", JSON.stringify(inventory));
-}
-
-function renderInventory() {
-  const grid = document.getElementById("productGrid");
-  grid.innerHTML = "";
-
-  inventory.forEach(item => {
-    const card = document.createElement("div");
-    card.classList.add("product-card");
-
-    card.innerHTML = `
-      <h3>${item.name}</h3>
-      <p>Quantity: ${item.quantity}</p>
-      <button onclick="increaseItem('${item.name}')">+ Add Stock</button>
-      <button onclick="reduceItem('${item.name}')">- Remove Stock</button>
-    `;
-    grid.appendChild(card);
-  });
-}
-
-function addItem() {
-  const name = prompt("Enter product name:");
-  const quantity = parseInt(prompt("Enter quantity:"), 10);
-
-  if (!name || isNaN(quantity) || quantity <= 0) {
-    alert("Invalid input!");
-    return;
-  }
-
-  const existing = inventory.find(i => i.name.toLowerCase() === name.toLowerCase());
-  if (existing) {
-    existing.quantity += quantity;
-  } else {
-    inventory.push({ name, quantity });
-  }
-
-  saveInventory();
-  renderInventory();
-}
-
-function increaseItem(name) {
-  const item = inventory.find(i => i.name === name);
-  if (!item) return;
-  const amount = parseInt(prompt(`Add how many to ${item.name}?`), 10);
-  if (isNaN(amount) || amount <= 0) return alert("Invalid amount");
-  item.quantity += amount;
-  saveInventory();
-  renderInventory();
-}
-
-function reduceItem(name) {
-  const item = inventory.find(i => i.name === name);
-  if (!item) return;
-  const amount = parseInt(prompt(`Remove how many from ${item.name}?`), 10);
-  if (isNaN(amount) || amount <= 0 || amount > item.quantity) return alert("Invalid amount");
-  item.quantity -= amount;
-  saveInventory();
-  renderInventory();
-}
-
-function resetInventory() {
-  if (confirm("Clear all inventory?")) {
-    inventory = [];
-    saveInventory();
-    renderInventory();
-  }
-}
-
-document.getElementById("addItemBtn").addEventListener("click", addItem);
-document.getElementById("resetBtn").addEventListener("click", resetInventory);
-
-renderInventory();
-</script>
-
+  <script src="InventoryJava.js"></script>
 </body>
 </html>
-

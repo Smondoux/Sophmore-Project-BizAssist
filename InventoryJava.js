@@ -134,5 +134,12 @@ if (document.getElementById("resetBtn")) {
   });
 }
 
+
 // Initial render
 renderInventory();
+
+window.addEventListener("focus", () => {
+    inventory = JSON.parse(localStorage.getItem("inventory")) || [];
+    renderInventory();
+});
+

@@ -33,22 +33,22 @@ document.getElementById("logSaleBtn").addEventListener("click", () => {
         return;
     }
 
+ 
     sales.push({ product, quantity, amount, date: new Date() });
     saveSales();
     renderSales();
 
+
     document.getElementById("product").value = "";
     document.getElementById("quantity").value = "";
     document.getElementById("amount").value = "";
-});
 
 
-  if (typeof decreaseInventory === "function") {
+    if (typeof decreaseInventory === "function") {
         decreaseInventory(product, quantity);
     }
-
-   
 });
 renderSales();
+
 
 

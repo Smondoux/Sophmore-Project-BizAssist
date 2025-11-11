@@ -52,13 +52,13 @@ function renderInventory() {
       const profit = item.price && item.cost ? (item.price - item.cost) * item.quantity : 0;
 
       card.innerHTML = `
-        <h3>${item.productName}</h3>
+        <h3>${item.name}</h3>
         <p>Quantity: ${item.quantity}</p>
         ${item.cost !== undefined ? `<p>Cost per unit: $${item.cost.toFixed(2)}</p>` : ""}
         ${item.price !== undefined ? `<p>Price per unit: $${item.price.toFixed(2)}</p>` : ""}
         ${item.cost !== undefined && item.price !== undefined ? `<p><strong>Potential Profit: $${profit.toFixed(2)}</strong></p>` : ""}
-        <button onclick="increaseItem('${item.productName}')">+ Add Stock</button>
-        <button onclick="reduceItem('${item.productName}')">- Remove Stock</button>
+        <button onclick="increaseItem('${item.name}')">+ Add Stock</button>
+        <button onclick="reduceItem('${item.name}')">- Remove Stock</button>
       `;
 
       itemsContainer.appendChild(card);
@@ -70,45 +70,45 @@ function renderInventory() {
 }
 
 function addItem() {
-  const productName = prompt("Enter product name:");
+  const name = prompt("Enter product name:");
   const category = prompt("Enter category (Produce, Dairy, Meat, Bakery, Pantry, Beverages):") || "Other";
   const quantity = parseInt(prompt("Enter quantity:"), 10);
   const cost = parseFloat(prompt("Enter cost per unit:"));
   const price = parseFloat(prompt("Enter selling price per unit:"));
 
-  if (!productName || isNaN(quantity) || quantity <= 0 || isNaN(cost) || isNaN(price)) {
+  if (!name || isNaN(quantity) || quantity <= 0 || isNaN(cost) || isNaN(price)) {
     alert("Invalid input! Please enter valid numbers.");
     return;
   }
 
-  const existing = inventory.find(i => i.productName.toLowerCase() === productName.toLowerCase());
+  const existing = inventory.find(i => i.name.toLowerCase() === name.toLowerCase());
   if (existing) {
     existing.quantity += quantity;
     existing.cost = cost;
     existing.price = price;
     if (!existing.category) existing.category = category;
   } else {
-    inventory.push({ productName, category, quantity, cost, price });
+    inventory.push({ name, category, quantity, cost, price });
   }
 
   saveInventory();
   renderInventory();
 }
 
-function increaseItem(productName) {
-  const item = inventory.find(i => i.productName.toLowerCase() === productName.toLowerCase());
+function increaseItem(name) {
+  const item = inventory.find(i => i.name.toLowerCase() === name.toLowerCase());
   if (!item) return;
-  const amount = parseInt(prompt(`Add how many to ${item.productName}?`), 10);
+  const amount = parseInt(prompt(`Add how many to ${item.name}?`), 10);
   if (isNaN(amount) || amount <= 0) return alert("Invalid amount");
   item.quantity += amount;
   saveInventory();
   renderInventory();
 }
 
-function reduceItem(productName) {
-  const item = inventory.find(i => i.productName.toLowerCase() === productName.toLowerCase());
+function reduceItem(name) {
+  const item = inventory.find(i => i.name.toLowerCase() === name.toLowerCase());
   if (!item) return;
-  const amount = parseInt(prompt(`Remove how many from ${item.productName}?`), 10);
+  const amount = parseInt(prompt(`Remove how many from ${item.name}?`), 10);
   if (isNaN(amount) || amount <= 0 || amount > item.quantity) return alert("Invalid amount");
   item.quantity -= amount;
   saveInventory();
@@ -116,7 +116,7 @@ function reduceItem(productName) {
 }
 
 function decreaseInventory(productName, amountSold) {
-  const item = inventory.find(i => i.productName.toLowerCase() === productName.toLowerCase());
+  const item = inventory.find(i => i.name.toLowerCase() === productName.toLowerCase());
   if (!item) return;
   if (amountSold > item.quantity) amountSold = item.quantity;
   item.quantity -= amountSold;

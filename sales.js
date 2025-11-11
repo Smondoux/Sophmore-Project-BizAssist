@@ -157,7 +157,4 @@ document.getElementById("logSaleBtn").addEventListener("click", () => {
     amountInput.value = "";
 });
 
-// Initialize page
-populateProductDropdown();
-renderSales();
 

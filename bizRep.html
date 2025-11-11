@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="bizStyle.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
 </head>
 
 <script>
@@ -65,7 +66,7 @@
 
 </script>    
     
-<bod>
+<body>
     <div id="myHeader">
         <h1>BizAssist</h1>
         <h4>Buisness Reports</h4>
@@ -82,8 +83,9 @@
     <div id="container">
         <div class="grid-layout">
             <div class="text-content">
-                <h1>Manual Lab Report</h1>  
-                <p>Input the profits at the start of a certain period, the profits at the end of a certain period, and your current costs (such as bills and wages). You will then recieve a report of your current profits based off of the second costs, the percent change of your earnings, and projected profits for the next week and month based on the percentage.</p>
+                <h1>Manual Buisness Report</h1>  
+                <p>Input the profits at the start of a certain period, the profits at the end of a certain period, and your current costs (such as bills and wages). You will then recieve a report of your current profits based off of the second costs, the percent change of your earnings, and projected profits for the next week and month based on the percentage.</p> <br>
+                <p>For the graph, input each category and the amount of products that sold from it.</p>
             </div>
             
             <!--Lab Report Required Info-->
@@ -101,6 +103,73 @@
         </div>
     </div>
     
-</bod>
+<canvas id="catChart"></canvas>
 
+  <!-- Chart Buttons -->
+  <div>
+    <input type="text" id="labelInput" placeholder="Category Name">
+    <input type="number" id="valueInput" placeholder="Number Sold">
+    <button id="addDataBtn">Add Data</button>
+    <button id="resetBtn">Reset Graph</button>
+  </div>
+
+  <!-- Chart Library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    const ctx = document.getElementById('catChart');
+
+    // Initial chart setup
+    const catChart = new Chart(ctx, {
+      type: 'bar',
+        data: {
+        labels: [],
+        datasets: [{
+          label: 'Values',
+          data: [],
+          backgroundColor: []
+        }]
+      },
+      options: {
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    // Add data from textboxes
+    document.getElementById('addDataBtn').addEventListener('click', () => {
+      const label = document.getElementById('labelInput').value;
+      const value = parseFloat(document.getElementById('valueInput').value);
+
+      if (label && !isNaN(value)) {
+        catChart.data.labels.push(label);
+        catChart.data.datasets[0].data.push(value);
+        catChart.data.datasets[0].backgroundColor.push(randomColor());
+        catChart.update();
+      }
+
+      // Clear inputs
+      document.getElementById('labelInput').value = '';
+      document.getElementById('valueInput').value = '';
+    });
+
+    // Reset the chart
+        document.getElementById('resetBtn').addEventListener('click', () => {
+      catChart.data.labels = [];
+      catChart.data.datasets[0].data = [];
+      catChart.data.datasets[0].backgroundColor = [];
+      catChart.update();
+    });
+
+    // Helper: Random color generator
+    function randomColor() {
+      const r = Math.floor(Math.random() * 255);
+      const g = Math.floor(Math.random() * 255);
+      const b = Math.floor(Math.random() * 255);
+      return `rgba(${r}, ${g}, ${b}, 0.6)`;
+    }
+  </script>
+</body> 
 </html>
+

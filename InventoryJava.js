@@ -112,24 +112,25 @@ function decreaseInventory(productName, amountSold) {
   renderInventory();
 }
 
-if (document.getElementById("addItemBtn")) {
-  document.getElementById("addItemBtn").addEventListener("click", addItem);
-}
-if (document.getElementById("resetBtn")) {
-  document.getElementById("resetBtn").addEventListener("click", () => {
+window.decreaseInventory = decreaseInventory;
+
+window.addEventListener("focus", () => {
+  inventory = JSON.parse(localStorage.getItem("inventory")) || [];
+  renderInventory();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const addBtn = document.getElementById("addItemBtn");
+  const resetBtn = document.getElementById("resetBtn");
+
+  if (addBtn) addBtn.addEventListener("click", addItem);
+  if (resetBtn) resetBtn.addEventListener("click", () => {
     if (confirm("Clear all inventory?")) {
       inventory = [];
       saveInventory();
       renderInventory();
     }
   });
-}
 
-renderInventory();
-
-window.decreaseInventory = decreaseInventory;
-
-window.addEventListener("focus", () => {
-  inventory = JSON.parse(localStorage.getItem("inventory")) || [];
   renderInventory();
 });

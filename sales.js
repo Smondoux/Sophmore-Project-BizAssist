@@ -47,10 +47,8 @@ document.getElementById("logSaleBtn").addEventListener("click", () => {
         decreaseInventory(product, quantity);
     }
 
-    // Clear input fields
-    document.getElementById("product").value = "";
-    document.getElementById("quantity").value = "";
-    document.getElementById("amount").value = "";
+   
 });
 renderSales();
+
 

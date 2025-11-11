@@ -49,9 +49,14 @@ function renderInventory() {
 
       card.classList.add(catClass);
 
+      const profit = item.price && item.cost ? (item.price - item.cost) * item.quantity : 0;
+
       card.innerHTML = `
         <h3>${item.name}</h3>
         <p>Quantity: ${item.quantity}</p>
+        ${item.cost !== undefined ? `<p>Cost per unit: $${item.cost.toFixed(2)}</p>` : ""}
+        ${item.price !== undefined ? `<p>Price per unit: $${item.price.toFixed(2)}</p>` : ""}
+        ${item.cost !== undefined && item.price !== undefined ? `<p><strong>Potential Profit: $${profit.toFixed(2)}</strong></p>` : ""}
         <button onclick="increaseItem('${item.name}')">+ Add Stock</button>
         <button onclick="reduceItem('${item.name}')">- Remove Stock</button>
       `;
@@ -68,15 +73,22 @@ function addItem() {
   const name = prompt("Enter product name:");
   const category = prompt("Enter category (Produce, Dairy, Meat, Bakery, Pantry, Beverages):") || "Other";
   const quantity = parseInt(prompt("Enter quantity:"), 10);
+  const cost = parseFloat(prompt("Enter cost per unit:"));
+  const price = parseFloat(prompt("Enter selling price per unit:"));
 
-  if (!name || isNaN(quantity) || quantity <= 0) return alert("Invalid input!");
+  if (!name || isNaN(quantity) || quantity <= 0 || isNaN(cost) || isNaN(price)) {
+    alert("Invalid input! Please enter valid numbers.");
+    return;
+  }
 
   const existing = inventory.find(i => i.name.toLowerCase() === name.toLowerCase());
   if (existing) {
     existing.quantity += quantity;
+    existing.cost = cost;
+    existing.price = price;
     if (!existing.category) existing.category = category;
   } else {
-    inventory.push({ name, category, quantity });
+    inventory.push({ name, category, quantity, cost, price });
   }
 
   saveInventory();

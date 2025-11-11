@@ -1,3 +1,4 @@
+// inventory.js
 let inventory = JSON.parse(localStorage.getItem("inventory")) || [];
 
 function saveInventory() {
@@ -6,6 +7,7 @@ function saveInventory() {
 
 function renderInventory() {
   const grid = document.getElementById("productGrid");
+  if (!grid) return; // Only render if page has a grid
   grid.innerHTML = "";
 
   if (inventory.length === 0) {
@@ -13,6 +15,7 @@ function renderInventory() {
     return;
   }
 
+  // Group items by category
   const categories = {};
   inventory.forEach(item => {
     const cat = item.category || "Other";
@@ -20,6 +23,7 @@ function renderInventory() {
     categories[cat].push(item);
   });
 
+  // Sort categories alphabetically
   const sortedCategories = Object.keys(categories).sort();
 
   sortedCategories.forEach(catName => {
@@ -37,6 +41,7 @@ function renderInventory() {
       const card = document.createElement("div");
       card.classList.add("product-card");
 
+      // Assign category color
       let catClass = "other";
       const category = (item.category || "").toLowerCase();
       if (category === "produce") catClass = "produce";
@@ -86,7 +91,7 @@ function addItem() {
 }
 
 function increaseItem(name) {
-  const item = inventory.find(i => i.name === name);
+  const item = inventory.find(i => i.name.toLowerCase() === name.toLowerCase());
   if (!item) return;
   const amount = parseInt(prompt(`Add how many to ${item.name}?`), 10);
   if (isNaN(amount) || amount <= 0) return alert("Invalid amount");
@@ -96,7 +101,7 @@ function increaseItem(name) {
 }
 
 function reduceItem(name) {
-  const item = inventory.find(i => i.name === name);
+  const item = inventory.find(i => i.name.toLowerCase() === name.toLowerCase());
   if (!item) return;
   const amount = parseInt(prompt(`Remove how many from ${item.name}?`), 10);
   if (isNaN(amount) || amount <= 0 || amount > item.quantity) return alert("Invalid amount");
@@ -105,31 +110,29 @@ function reduceItem(name) {
   renderInventory();
 }
 
-function resetInventory() {
-  if (confirm("Clear all inventory?")) {
-    inventory = [];
-    saveInventory();
-    renderInventory();
-  }
-}
-
-// New function to decrease stock based on a sale
-function decreaseInventory(productName, soldQuantity) {
-  if (!productName || isNaN(soldQuantity) || soldQuantity <= 0) return;
-
+// Cross-page function for sales
+function decreaseInventory(productName, amountSold) {
   const item = inventory.find(i => i.name.toLowerCase() === productName.toLowerCase());
-  if (!item) return alert(`Item "${productName}" not found in inventory`);
-
-  if (soldQuantity > item.quantity) {
-    return alert(`Cannot sell ${soldQuantity} units. Only ${item.quantity} in stock.`);
-  }
-
-  item.quantity -= soldQuantity;
+  if (!item) return;
+  if (amountSold > item.quantity) amountSold = item.quantity;
+  item.quantity -= amountSold;
   saveInventory();
   renderInventory();
 }
 
-document.getElementById("addItemBtn").addEventListener("click", addItem);
-document.getElementById("resetBtn").addEventListener("click", resetInventory);
+// Event listeners for inventory page buttons (if they exist)
+if (document.getElementById("addItemBtn")) {
+  document.getElementById("addItemBtn").addEventListener("click", addItem);
+}
+if (document.getElementById("resetBtn")) {
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    if (confirm("Clear all inventory?")) {
+      inventory = [];
+      saveInventory();
+      renderInventory();
+    }
+  });
+}
 
+// Initial render
 renderInventory();

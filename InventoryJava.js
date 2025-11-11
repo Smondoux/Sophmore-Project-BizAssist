@@ -1,4 +1,3 @@
-// inventory.js
 let inventory = JSON.parse(localStorage.getItem("inventory")) || [];
 
 function saveInventory() {
@@ -7,7 +6,7 @@ function saveInventory() {
 
 function renderInventory() {
   const grid = document.getElementById("productGrid");
-  if (!grid) return; // Only render if page has a grid
+  if (!grid) return;
   grid.innerHTML = "";
 
   if (inventory.length === 0) {
@@ -15,7 +14,6 @@ function renderInventory() {
     return;
   }
 
-  // Group items by category
   const categories = {};
   inventory.forEach(item => {
     const cat = item.category || "Other";
@@ -23,7 +21,6 @@ function renderInventory() {
     categories[cat].push(item);
   });
 
-  // Sort categories alphabetically
   const sortedCategories = Object.keys(categories).sort();
 
   sortedCategories.forEach(catName => {
@@ -41,7 +38,6 @@ function renderInventory() {
       const card = document.createElement("div");
       card.classList.add("product-card");
 
-      // Assign category color
       let catClass = "other";
       const category = (item.category || "").toLowerCase();
       if (category === "produce") catClass = "produce";
@@ -73,10 +69,7 @@ function addItem() {
   const category = prompt("Enter category (Produce, Dairy, Meat, Bakery, Pantry, Beverages):") || "Other";
   const quantity = parseInt(prompt("Enter quantity:"), 10);
 
-  if (!name || isNaN(quantity) || quantity <= 0) {
-    alert("Invalid input!");
-    return;
-  }
+  if (!name || isNaN(quantity) || quantity <= 0) return alert("Invalid input!");
 
   const existing = inventory.find(i => i.name.toLowerCase() === name.toLowerCase());
   if (existing) {
@@ -110,7 +103,6 @@ function reduceItem(name) {
   renderInventory();
 }
 
-// Cross-page function for sales
 function decreaseInventory(productName, amountSold) {
   const item = inventory.find(i => i.name.toLowerCase() === productName.toLowerCase());
   if (!item) return;
@@ -120,7 +112,6 @@ function decreaseInventory(productName, amountSold) {
   renderInventory();
 }
 
-// Event listeners for inventory page buttons (if they exist)
 if (document.getElementById("addItemBtn")) {
   document.getElementById("addItemBtn").addEventListener("click", addItem);
 }
@@ -136,21 +127,9 @@ if (document.getElementById("resetBtn")) {
 
 renderInventory();
 
-window.decreaseInventory = function(productName, amountSold) {
-
-    const item = inventory.find(i => i.name.toLowerCase() === productName.toLowerCase());
-    if (!item) return; 
-    item.quantity -= amountSold;
-    if (item.quantity < 0) item.quantity = 0; 
-    saveInventory();
-    renderInventory();
-};
-
+window.decreaseInventory = decreaseInventory;
 
 window.addEventListener("focus", () => {
-    inventory = JSON.parse(localStorage.getItem("inventory")) || [];
-    renderInventory();
+  inventory = JSON.parse(localStorage.getItem("inventory")) || [];
+  renderInventory();
 });
-});
-
-

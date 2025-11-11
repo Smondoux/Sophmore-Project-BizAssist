@@ -160,3 +160,4 @@ document.getElementById("logSaleBtn").addEventListener("click", () => {
 // Initialize page
 populateProductDropdown();
 renderSales();
+

@@ -3,27 +3,25 @@ body {
 }
 
 a.button {
-    padding: 7px;
+    padding: 7px 14px;
     border: 2.5px outset buttonborder;
     border-radius: 7px;
     color: 	white;
     background-color: #49acad;
     text-decoration: none;
-    margin: 15px;
+    margin: 5px;
     display: inline-block;
-    position:relative;
-    bottom: 70px;
-    left:75%;
+    gap: 1px;
+    
 }
 
 #myHeader {
-    height: 100px;
+    display: flex;                
+    justify-content: space-between; 
+    align-items: center;          
+    height: 120px;
     background-color: transparent;
-    color: 	black;
-    padding: 10px;
-    position: relative;
-    margin-left: 5px;
-    margin-right: 5px;
+    color: black;
 }
 
 #container {
@@ -45,7 +43,15 @@ a.button {
 
 .text-content{
     max-width: 600px;
+    
 }
+
+.logo{
+    width: 800px;
+    height: 250px;
+    scale: 50%;
+    display: block;
+    }
 
 .customer-image{
     width: 250px;
@@ -57,17 +63,14 @@ a.button {
     justify-items: center;
 }
 
-#reason{
-    width: 185px;
+.customer-list {
+  margin-top: 20px;
 }
 
-#msg{
-    width: 300px;
-    height: 100px;
+.customer-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #f9f9f9;
+  border-radius: 5px;
 }
-
-canvas {
-      max-width: 600px;
-      margin: 20px auto;
-      display: block;
-    }

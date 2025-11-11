@@ -7,8 +7,7 @@
 
 <bod>
     <div id="myHeader">
-        <h1>BizAssist</h1>
-        <h4>Customer contact page</h4>
+        <img src="images/bizLogo.png" class="logo">
 
         <!--Buttons for navigation-->
         <a href="Inventory.html" class="button">Inventory</a>
@@ -37,17 +36,27 @@
             <!--Contact boxes-->
             <div class="text-content">
                 <h2>Contact Them</h2>
-                <label for="reason">Customer Name:</label> <br>
-                <input type="text" id="reason" name="reason" placeholder="Enter a reason for your email"><br><br>
+                <label for="name">Customer Name:</label> <br>
+                <input type="text" id="name" name="reason" placeholder="Enter customer name"><br><br>
 
-                <label for="msg">Information:</label> <br>
-                <input type="text" id="msg" name="message" placeholder="Enter what you want to tell the customer"> <br>
+                <label for="email">Email Address:</label> <br>
+                <input type="text" id="email" name="message" placeholder="Enter their email"> <br><br>
 
-                <input type="button" value="Submit" onclick="alert('Unfinished')">
+                <label for="phone">Phone Number:</label> <br>
+                <input type="text" id="phone" name="message" placeholder="Enter their phone number"> <br><br>
+
+                <label for="points">Loyalty Points:</label> <br>
+                <input type="text" id="points" name="message" placeholder="Enter their points number"> <br><br>
+
+                <label for="hist">Purchase History:</label> <br>
+                <input type="text" id="hist" name="message" placeholder="Enter recent purchases"> <br><br>
+
+                <input type="button" value="Submit" onclick="addCustomer()">
             </div>
         </div>
+        <div id="customerList" class="customer-list" style="text-align: center;"></div>
     </div>
-    
+    <script src="customerList.js"></script>
 </bod>
 
 </html>

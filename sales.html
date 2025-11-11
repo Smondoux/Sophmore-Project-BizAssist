@@ -20,14 +20,15 @@
 
     <div id="salesContainer">
         <h2>Log a Sale</h2>
-        <label for="product">Product Name:</label>
-        <input type="text" id="product"><br><br>
+
+        <label for="product">Product:</label>
+        <select id="product"></select><br><br>
 
         <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity"><br><br>
+        <input type="number" id="quantity" min="1"><br><br>
 
         <label for="amount">Sale Amount ($):</label>
-        <input type="number" id="amount" step="0.01"><br><br>
+        <input type="number" id="amount" step="0.01" min="0" readonly><br><br>
 
         <button id="logSaleBtn">Log Sale</button>
     </div>
@@ -39,12 +40,17 @@
             <th>Quantity</th>
             <th>Amount</th>
             <th>Date</th>
+            <th>Action</th>
         </tr>
     </table>
-    <script src="InventoryJava.js"></script>
-    <script src="sales.js"></script>
+
+    <br>
+    <h2>Profit Summary</h2>
+    <div id="profitSummary">
+        <p><strong>Total Revenue:</strong> $<span id="totalRevenue">0.00</span></p>
+        <p><strong>Total Profit:</strong> $<span id="totalProfit">0.00</span></p>
+        <p><strong>Profit Margin:</strong> <span id="profitMargin">0.00</span>%</p>
+    </div>
+
 </body>
 </html>
-
-
-

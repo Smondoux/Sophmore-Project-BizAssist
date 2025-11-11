@@ -66,3 +66,8 @@ a.button {
     height: 100px;
 }
 
+canvas {
+      max-width: 600px;
+      margin: 20px auto;
+      display: block;
+    }

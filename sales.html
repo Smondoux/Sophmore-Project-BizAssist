@@ -50,9 +50,33 @@
         <p><strong>Total Profit:</strong> $<span id="totalProfit">0.00</span></p>
         <p><strong>Profit Margin:</strong> <span id="profitMargin">0.00</span>%</p>
     </div>
+
+    <h2>Time-Based Reports</h2>
+    <label for="reportRange">Select Range:</label>
+    <select id="reportRange">
+        <option value="today">Today</option>
+        <option value="week">This Week</option>
+        <option value="month">This Month</option>
+        <option value="custom">Custom Range</option>
+    </select>
+
+    <div id="customRange" style="display: none; margin-top: 10px;">
+        <label>Start Date:</label>
+        <input type="date" id="startDate">
+
+        <label>End Date:</label>
+        <input type="date" id="endDate">
+    </div>
+
+    <button id="runReportBtn">Run Report</button>
+
+    <h3>Report Results</h3>
+    <p><strong>Revenue:</strong> $<span id="reportRevenue">0.00</span></p>
+    <p><strong>Profit:</strong> $<span id="reportProfit">0.00</span></p>
+    <p><strong>Margin:</strong> <span id="reportMargin">0.00</span>%</p>
+
     <script src="InventoryJava.js"></script>
     <script src="sales.js"></script>
 </body>
 </html>
-
 

@@ -1,4 +1,3 @@
-let inventory = JSON.parse(localStorage.getItem("inventory")) || [];
 let sales = JSON.parse(localStorage.getItem("sales")) || [];
 
 function saveSales() {
@@ -6,6 +5,7 @@ function saveSales() {
 }
 
 function populateProductDropdown() {
+    inventory = JSON.parse(localStorage.getItem("inventory")) || [];
     const select = document.getElementById("product");
     select.innerHTML = "";
 
@@ -51,12 +51,12 @@ function renderSales() {
         deleteCell.appendChild(delBtn);
     });
 
-    calculateProfit(); 
+    calculateProfit();
 }
 
 function deleteSale(index) {
     const sale = sales[index];
-    const item = inventory.find(i => i.name === sale.product);
+    const item = inventory.find(i => i.name.toLowerCase() === sale.product.toLowerCase());
 
     if (item) {
         item.quantity += sale.quantity;
@@ -76,11 +76,8 @@ function calculateProfit() {
     sales.forEach(sale => {
         totalRevenue += sale.amount;
 
-        const item = inventory.find(i => i.name === sale.product);
-        if (item) {
-            const costPerUnit = item.cost || 0;
-            totalCost += costPerUnit * sale.quantity;
-        }
+        const item = inventory.find(i => i.name.toLowerCase() === sale.product.toLowerCase());
+        if (item) totalCost += (item.cost || 0) * sale.quantity;
     });
 
     const totalProfit = totalRevenue - totalCost;
@@ -91,6 +88,7 @@ function calculateProfit() {
     document.getElementById("profitMargin").innerText = profitMargin.toFixed(2);
 }
 
+// Elements
 const productSelect = document.getElementById("product");
 const quantityInput = document.getElementById("quantity");
 const amountInput = document.getElementById("amount");
@@ -98,7 +96,7 @@ const amountInput = document.getElementById("amount");
 function updateSaleAmount() {
     const productName = productSelect.value;
     const quantity = parseInt(quantityInput.value, 10) || 0;
-    const item = inventory.find(i => i.name === productName);
+    const item = inventory.find(i => i.name.toLowerCase() === productName.toLowerCase());
     if (item && quantity > 0) {
         amountInput.value = (item.price * quantity).toFixed(2);
     } else {
@@ -109,7 +107,6 @@ function updateSaleAmount() {
 productSelect.addEventListener("change", updateSaleAmount);
 quantityInput.addEventListener("input", updateSaleAmount);
 
-// Handle logging a sale
 document.getElementById("logSaleBtn").addEventListener("click", () => {
     const product = productSelect.value;
     const quantity = parseInt(quantityInput.value, 10);
@@ -119,7 +116,7 @@ document.getElementById("logSaleBtn").addEventListener("click", () => {
         return;
     }
 
-    const invItem = inventory.find(i => i.name === product);
+    const invItem = inventory.find(i => i.name.toLowerCase() === product.toLowerCase());
     if (!invItem) {
         alert("Product not found in inventory.");
         return;
@@ -131,7 +128,6 @@ document.getElementById("logSaleBtn").addEventListener("click", () => {
     }
 
     const amount = invItem.price * quantity;
-
     invItem.quantity -= quantity;
     localStorage.setItem("inventory", JSON.stringify(inventory));
 
@@ -144,68 +140,14 @@ document.getElementById("logSaleBtn").addEventListener("click", () => {
     amountInput.value = "";
 });
 
-// --- Time-Based Reports ---
-document.getElementById("reportRange").addEventListener("change", () => {
-    const range = document.getElementById("reportRange").value;
-    document.getElementById("customRange").style.display =
-        range === "custom" ? "block" : "none";
+// Auto-refresh inventory when page gains focus
+window.addEventListener("focus", () => {
+    populateProductDropdown();
+    renderSales();
 });
 
-document.getElementById("runReportBtn").addEventListener("click", () => {
-    const range = document.getElementById("reportRange").value;
-    let filtered = [];
-    const now = new Date();
-
-    if (range === "today") {
-        filtered = sales.filter(s => new Date(s.date).toDateString() === now.toDateString());
-    } else if (range === "week") {
-        const startOfWeek = new Date(now);
-        startOfWeek.setDate(now.getDate() - now.getDay());
-        filtered = sales.filter(s => new Date(s.date) >= startOfWeek);
-    } else if (range === "month") {
-        const month = now.getMonth();
-        const year = now.getFullYear();
-        filtered = sales.filter(s => {
-            const d = new Date(s.date);
-            return d.getMonth() === month && d.getFullYear() === year;
-        });
-    } else if (range === "custom") {
-        const start = new Date(document.getElementById("startDate").value);
-        const end = new Date(document.getElementById("endDate").value);
-        end.setHours(23,59,59);
-
-        if (!start || !end) {
-            alert("Please select both dates.");
-            return;
-        }
-
-        filtered = sales.filter(s => {
-            const d = new Date(s.date);
-            return d >= start && d <= end;
-        });
-    }
-
-    calculateTimeReport(filtered);
+// Initialize
+document.addEventListener("DOMContentLoaded", () => {
+    populateProductDropdown();
+    renderSales();
 });
-
-function calculateTimeReport(filteredSales) {
-    let revenue = 0;
-    let cost = 0;
-
-    filteredSales.forEach(sale => {
-        revenue += sale.amount;
-
-        const item = inventory.find(i => i.name === sale.product);
-        if (item) cost += (item.cost || 0) * sale.quantity;
-    });
-
-    const profit = revenue - cost;
-    const margin = revenue > 0 ? (profit / revenue) * 100 : 0;
-
-    document.getElementById("reportRevenue").innerText = revenue.toFixed(2);
-    document.getElementById("reportProfit").innerText = profit.toFixed(2);
-    document.getElementById("reportMargin").innerText = margin.toFixed(2);
-}
-
-populateProductDropdown();
-renderSales();

@@ -16,6 +16,9 @@ function getCategoryEmoji(category) {
   }
 }
 
+// Track which items have already alerted this session
+const alertedItems = new Set();
+
 function renderInventory() {
   const grid = document.getElementById("productGrid");
   if (!grid) return;
@@ -25,6 +28,19 @@ function renderInventory() {
     grid.innerHTML = "<p>No items in inventory.</p>";
     return;
   }
+
+  // --- Check for low or out-of-stock warnings ---
+  inventory.forEach(item => {
+    if (!alertedItems.has(item.name)) {
+      if (item.quantity === 0) {
+        alert(`⚠️ ${item.name} is OUT OF STOCK!`);
+        alertedItems.add(item.name);
+      } else if (item.quantity <= 10) {
+        alert(`⚠️ Low Stock: Only ${item.quantity} left of ${item.name}`);
+        alertedItems.add(item.name);
+      }
+    }
+  });
 
   const categories = {};
   inventory.forEach(item => {
@@ -115,7 +131,6 @@ function increaseItem(name) {
   if (isNaN(amount) || amount <= 0) return alert("Invalid amount");
   item.quantity += amount;
   saveInventory();
-  if (item.quantity <= 10) alert(`⚠️ Low Stock: Only ${item.quantity} left of ${item.name}`);
   renderInventory();
 }
 
@@ -126,8 +141,6 @@ function reduceItem(name) {
   if (isNaN(amount) || amount <= 0 || amount > item.quantity) return alert("Invalid amount");
   item.quantity -= amount;
   saveInventory();
-  if (item.quantity === 0) alert(`⚠️ ${item.name} is OUT OF STOCK!`);
-  else if (item.quantity <= 10) alert(`⚠️ Low Stock: Only ${item.quantity} left of ${item.name}`);
   renderInventory();
 }
 

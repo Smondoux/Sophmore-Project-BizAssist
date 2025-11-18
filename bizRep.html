@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="bizStyle.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
 </head>
 
@@ -76,6 +77,7 @@
         <a href="sales.html" class="button">Sales</a>
         <a href="index.html" class="button">Customers</a>
         <a href="bizRep.html" class="button">Reports</a>
+        
 
     </div>
 
@@ -105,7 +107,7 @@
     
 <canvas id="catChart"></canvas>
 
-  <!-- Chart Buttons -->
+  <!-- Controls -->
   <div>
     <input type="text" id="labelInput" placeholder="Category Name">
     <input type="number" id="valueInput" placeholder="Number Sold">
@@ -113,8 +115,8 @@
     <button id="resetBtn">Reset Graph</button>
   </div>
 
-  <!-- Chart Library -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chart Link -->
+
 
   <script>
     const ctx = document.getElementById('catChart');
@@ -137,7 +139,7 @@
       }
     });
 
-    // Add data from textboxes
+    //Add data from textboxes
     document.getElementById('addDataBtn').addEventListener('click', () => {
       const label = document.getElementById('labelInput').value;
       const value = parseFloat(document.getElementById('valueInput').value);
@@ -149,12 +151,12 @@
         catChart.update();
       }
 
-      // Clear inputs
+      //Clears inputs
       document.getElementById('labelInput').value = '';
       document.getElementById('valueInput').value = '';
     });
 
-    // Reset the chart
+    //Resets the chart
         document.getElementById('resetBtn').addEventListener('click', () => {
       catChart.data.labels = [];
       catChart.data.datasets[0].data = [];
@@ -162,14 +164,69 @@
       catChart.update();
     });
 
-    // Helper: Random color generator
+    //Random Colors
     function randomColor() {
       const r = Math.floor(Math.random() * 255);
       const g = Math.floor(Math.random() * 255);
       const b = Math.floor(Math.random() * 255);
       return `rgba(${r}, ${g}, ${b}, 0.6)`;
-    }
+    } 
   </script>
+
+    <br><br>
+    
+    <canvas id="lineChart"></canvas>
+
+    <script>
+        //Creates chart which starts empty
+        const lineCtx = document.getElementById('lineChart');
+
+        const lineChart = new Chart(lineCtx, {
+        type: 'line',
+        data: {
+            labels: [], 
+            datasets: [{
+                label: 'User Data (Line)',
+                data: [],
+                borderWidth: 2,
+                fill: false
+            }]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+        //Adds points
+        function addPoint() {
+        const val = document.getElementById('dataInput').value;
+
+        if (val === "") {
+            alert("Profits cannot be blank.");
+            return;
+        }
+
+        lineChart.data.labels.push(lineChart.data.labels.length + 1);
+        lineChart.data.datasets[0].data.push(Number(val));
+        lineChart.update();
+    }
+        //Clears chart
+        function clearLineChart() {
+        lineChart.data.labels = [];
+        lineChart.data.datasets[0].data = [];
+        lineChart.update();
+    }
+    </script>
+    
+    <br><br>
+    <!-- Buttons -->
+    <div>
+    <input type="number" id="dataInput" placeholder="Enter value">
+    <button onclick="addPoint()">Add Profits</button>
+    <button onclick="clearLineChart()">Reset Chart</button>
+    </div>
 </body> 
 </html>
 

@@ -131,19 +131,6 @@ function reduceItem(name) {
   renderInventory();
 }
 
-function decreaseInventory(productName, amountSold) {
-  const item = inventory.find(i => i.name.toLowerCase() === productName.toLowerCase());
-  if (!item) return;
-  if (amountSold > item.quantity) amountSold = item.quantity;
-  item.quantity -= amountSold;
-  saveInventory();
-  if (item.quantity === 0) alert(`⚠️ ${item.name} is OUT OF STOCK!`);
-  else if (item.quantity <= 10) alert(`⚠️ Low Stock: Only ${item.quantity} left of ${item.name}`);
-  renderInventory();
-}
-
-window.decreaseInventory = decreaseInventory;
-
 window.addEventListener("focus", () => {
   inventory = JSON.parse(localStorage.getItem("inventory")) || [];
   renderInventory();
@@ -162,4 +149,3 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   renderInventory();
 });
-

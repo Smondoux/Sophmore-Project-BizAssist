@@ -4,6 +4,18 @@ function saveInventory() {
   localStorage.setItem("inventory", JSON.stringify(inventory));
 }
 
+function getCategoryEmoji(category) {
+  switch ((category || "").toLowerCase()) {
+    case "produce": return "🍎";
+    case "dairy": return "🥛";
+    case "meat": return "🥩";
+    case "bakery": return "🍞";
+    case "pantry": return "🫙";
+    case "beverages": return "🥤";
+    default: return "🛒";
+  }
+}
+
 function renderInventory() {
   const grid = document.getElementById("productGrid");
   if (!grid) return;
@@ -27,8 +39,9 @@ function renderInventory() {
     const section = document.createElement("div");
     section.classList.add("category-section");
 
+    const catEmoji = getCategoryEmoji(catName);
     const title = document.createElement("h2");
-    title.textContent = catName;
+    title.textContent = `${catEmoji} ${catName}`;
     section.appendChild(title);
 
     const itemsContainer = document.createElement("div");
@@ -51,14 +64,17 @@ function renderInventory() {
 
       const profit = item.price && item.cost ? (item.price - item.cost) * item.quantity : 0;
 
+      const disableRemove = item.quantity === 0 ? "disabled" : "";
+      const productEmoji = getCategoryEmoji(item.category);
+
       card.innerHTML = `
-        <h3>${item.name}</h3>
+        <h3>${productEmoji} ${item.name}</h3>
         <p>Quantity: ${item.quantity}</p>
         ${item.cost !== undefined ? `<p>Cost per unit: $${item.cost.toFixed(2)}</p>` : ""}
         ${item.price !== undefined ? `<p>Price per unit: $${item.price.toFixed(2)}</p>` : ""}
         ${item.cost !== undefined && item.price !== undefined ? `<p><strong>Potential Profit: $${profit.toFixed(2)}</strong></p>` : ""}
         <button onclick="increaseItem('${item.name}')">+ Add Stock</button>
-        <button onclick="reduceItem('${item.name}')">- Remove Stock</button>
+        <button onclick="reduceItem('${item.name}')" ${disableRemove}>- Remove Stock</button>
       `;
 
       itemsContainer.appendChild(card);
@@ -76,10 +92,7 @@ function addItem() {
   const cost = parseFloat(prompt("Enter cost per unit:"));
   const price = parseFloat(prompt("Enter selling price per unit:"));
 
-  if (!name || isNaN(quantity) || quantity <= 0 || isNaN(cost) || isNaN(price)) {
-    alert("Invalid input! Please enter valid numbers.");
-    return;
-  }
+  if (!name || isNaN(quantity) || quantity <= 0 || isNaN(cost) || isNaN(price)) return alert("Invalid input! Please enter valid numbers.");
 
   const existing = inventory.find(i => i.name.toLowerCase() === name.toLowerCase());
   if (existing) {
@@ -102,6 +115,7 @@ function increaseItem(name) {
   if (isNaN(amount) || amount <= 0) return alert("Invalid amount");
   item.quantity += amount;
   saveInventory();
+  if (item.quantity <= 10) alert(`⚠️ Low Stock: Only ${item.quantity} left of ${item.name}`);
   renderInventory();
 }
 
@@ -112,6 +126,8 @@ function reduceItem(name) {
   if (isNaN(amount) || amount <= 0 || amount > item.quantity) return alert("Invalid amount");
   item.quantity -= amount;
   saveInventory();
+  if (item.quantity === 0) alert(`⚠️ ${item.name} is OUT OF STOCK!`);
+  else if (item.quantity <= 10) alert(`⚠️ Low Stock: Only ${item.quantity} left of ${item.name}`);
   renderInventory();
 }
 
@@ -121,6 +137,8 @@ function decreaseInventory(productName, amountSold) {
   if (amountSold > item.quantity) amountSold = item.quantity;
   item.quantity -= amountSold;
   saveInventory();
+  if (item.quantity === 0) alert(`⚠️ ${item.name} is OUT OF STOCK!`);
+  else if (item.quantity <= 10) alert(`⚠️ Low Stock: Only ${item.quantity} left of ${item.name}`);
   renderInventory();
 }
 
@@ -134,7 +152,6 @@ window.addEventListener("focus", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const addBtn = document.getElementById("addItemBtn");
   const resetBtn = document.getElementById("resetBtn");
-
   if (addBtn) addBtn.addEventListener("click", addItem);
   if (resetBtn) resetBtn.addEventListener("click", () => {
     if (confirm("Clear all inventory?")) {
@@ -143,6 +160,5 @@ document.addEventListener("DOMContentLoaded", () => {
       renderInventory();
     }
   });
-
   renderInventory();
 });

@@ -39,6 +39,13 @@
         else {
             makeReport(firstNum, secondNum, costs)
         }
+
+        lineChart.data.labels.push(lineChart.data.labels.length + 1);
+        lineChart.data.datasets[0].data.push(Number(firstNum - costs));
+        lineChart.update();
+        lineChart.data.labels.push(lineChart.data.labels.length + 1);
+        lineChart.data.datasets[0].data.push(Number(secondNum - costs));
+        lineChart.update();
         
         
         
@@ -127,7 +134,7 @@
         data: {
         labels: [],
         datasets: [{
-          label: 'Values',
+          label: 'Categories',
           data: [],
           backgroundColor: []
         }]
@@ -186,7 +193,7 @@
         data: {
             labels: [], 
             datasets: [{
-                label: 'Sales',
+                label: 'Profits',
                 data: [],
                 borderWidth: 2,
                 fill: false
@@ -211,6 +218,8 @@
         lineChart.data.labels.push(lineChart.data.labels.length + 1);
         lineChart.data.datasets[0].data.push(Number(val));
         lineChart.update();
+            
+            
     }
         //Clears chart
         function clearLineChart() {

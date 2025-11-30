@@ -57,13 +57,17 @@ body {
 }
 
 #invControls .button {
-  padding: 7px 14px;
+   padding: 7px 14px;               /* same as a.button */
   border: 2.5px outset buttonborder;
   border-radius: 7px;
-  background-color: #49acad;
   color: white;
-  cursor: pointer;
+  background-color: #49acad;
   text-decoration: none;
+  margin: 5px;
+  display: inline-block;
+  gap: 1px;
+  text-align: center;              /* center text */
+  cursor: pointer;
 }
 
 .category-section {
@@ -127,6 +131,7 @@ body {
   margin: 5px auto;
   display: block;
 }
+
 
 
 

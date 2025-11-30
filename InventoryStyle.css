@@ -30,12 +30,14 @@ body {
 
 .top-btn {
   padding: 7px 14px;
-  border: 2.5px outset buttonborder;
-  border-radius: 7px;
-  color: white;
-  background-color: #49acad;
-  text-decoration: none;
-  display: inline-block;
+    border: 2.5px outset buttonborder;
+    border-radius: 7px;
+    color: 	white;
+    background-color: #49acad;
+    text-decoration: none;
+    margin: 5px;
+    display: inline-block;
+    gap: 1px;
 }
 
 /* NEW: Controls container for Add/Reset buttons */
@@ -117,3 +119,4 @@ body {
   margin: 5px auto;
   display: block;
 }
+

@@ -13,9 +13,10 @@ body {
 }
 
 #topNav .logo {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+  width: 800px;
+    height: 250px;
+    scale: 50%;
+    display: block;
 }
 
 #topNav .logo img {
@@ -123,6 +124,7 @@ body {
   margin: 5px auto;
   display: block;
 }
+
 
 
 

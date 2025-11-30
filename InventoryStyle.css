@@ -27,9 +27,9 @@ body {
 #topButtons {
   display: row;
   justify-content: space-between; /* spread buttons across the header */
-  align-items: right;             /* vertically center buttons */
+  align-items: flex-end;             /* vertically center buttons */
   width: 100%;                     /* full width container */
-  gap: 5px;                       /* optional spacing */
+  gap: 20px;                       /* optional spacing */
 }
 
 .top-btn {
@@ -125,6 +125,7 @@ body {
   margin: 5px auto;
   display: block;
 }
+
 
 
 

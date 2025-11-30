@@ -19,9 +19,9 @@ body {
 }
 
 #topNav .logo img {
-  width: 400px;
-    height: 250px;
-    scale: 50%;
+   display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 #topButtons {
@@ -125,6 +125,7 @@ body {
   margin: 5px auto;
   display: block;
 }
+
 
 
 

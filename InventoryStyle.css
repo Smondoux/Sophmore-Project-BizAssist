@@ -15,7 +15,7 @@ body {
 #topNav .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
 
 #topNav .logo img {
@@ -27,7 +27,7 @@ body {
   justify-content: space-between; /* spread buttons across the header */
   align-items: right;             /* vertically center buttons */
   width: 100%;                     /* full width container */
-  gap: 10px;                       /* optional spacing */
+  gap: 5px;                       /* optional spacing */
 }
 
 .top-btn {
@@ -123,6 +123,7 @@ body {
   margin: 5px auto;
   display: block;
 }
+
 
 
 

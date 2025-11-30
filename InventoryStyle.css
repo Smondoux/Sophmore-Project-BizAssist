@@ -22,19 +22,10 @@ body {
   height: 70px;
 }
 
-#topNav .logo span {
-  font-size: 26px;
-  font-weight: bold;
-  color: black;
-}
-
 #topButtons {
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  max-width: none;
-  margin-left: 20px;
-  margin-right: 20px;
+  gap: 10px;
 }
 
 .top-btn {
@@ -47,20 +38,22 @@ body {
   display: inline-block;
 }
 
-#controls {
+/* NEW: Controls container for Add/Reset buttons */
+#invControls {
   display: flex;
-  justify-content: space-between;
-  margin: 20px 100px;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
 }
 
-#controls button {
+#invControls .button {
   padding: 7px 14px;
   border: 2.5px outset buttonborder;
   border-radius: 7px;
-  color: white;
   background-color: #49acad;
+  color: white;
   cursor: pointer;
-  margin: 5px;
+  text-decoration: none;
 }
 
 .category-section {

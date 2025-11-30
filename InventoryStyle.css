@@ -15,7 +15,6 @@ body {
 #topNav .logo {
   display: flex;
   align-items: center;
-  scale: 100%;
   gap: 5px;
 }
 
@@ -127,6 +126,7 @@ body {
   margin: 5px auto;
   display: block;
 }
+
 
 
 

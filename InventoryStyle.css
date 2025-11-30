@@ -1,63 +1,13 @@
-body {
-  background-color: white;
-  font-family: Arial, sans-serif;
-  margin: 0;
-}
-
-#topNav {
-  width: 100%;
-  padding: 15px 25px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#topNav .logo {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-#topNav .logo img {
-   display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-
+/* Top buttons */
 #topButtons {
-  display: flex;                  /* correct flex display */
-  justify-content: space-evenly; /* spread buttons across the header */
-  margin-left: auto;              
-  width: 100%;                    
-  gap: 20px;                      /* space between buttons */
-  align-items: center;            /* vertically center buttons */
+  display: flex;
+  justify-content: space-evenly; 
+  align-items: center;
+  width: 100%;
+  gap: 20px;
 }
 
 .top-btn {
-  padding: 7px 14px;               /* same as a.button */
-  border: 2.5px outset buttonborder;
-  border-radius: 7px;
-  color: white;
-  background-color: #49acad;
-  text-decoration: none;
-  margin: 5px;
-  display: inline-block;
-  gap: 1px;
-  text-align: center;              /* center text */
-  cursor: pointer;
-}
-
-#invControls {
-  display: flex;
-  justify-content: space-evenly; /* same as top buttons */
-  align-items: center;           /* vertical alignment */
-  width: 100%;                   /* full width like topButtons */
-  gap: 20px;                     /* same spacing between buttons */
-  margin: 20px 0;
-}
-
-#invControls .button {
   padding: 7px 14px;
   border: 2.5px outset buttonborder;
   border-radius: 7px;
@@ -70,83 +20,37 @@ body {
   cursor: pointer;
 }
 
-.category-section {
+/* Inventory section container */
+#inventorySection {
   margin: 20px;
-  padding: 10px;
 }
 
-.category-section h2 {
-  border-left: 5px solid #49acad;
-  padding-left: 10px;
-  font-size: 22px;
+/* Controls container above the inventory cards */
+#invControls {
+  display: flex;
+  justify-content: flex-start;   /* align buttons to the left */
+  align-items: center;           
+  gap: 10px;                     /* spacing between buttons */
+  margin-bottom: 15px;           /* space before inventory cards */
 }
 
+/* Make Add/Reset buttons match top header buttons */
+#invControls .button {
+  padding: 7px 14px;
+  border: 2.5px outset buttonborder;
+  border-radius: 7px;
+  color: white;
+  background-color: #49acad;
+  text-decoration: none;
+  margin: 0;                     /* controlled by flex gap */
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* Inventory cards container */
 .category-items {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
   gap: 20px;
 }
-
-.product-card {
-  background: #f9f9f9;
-  border-radius: 12px;
-  padding: 15px;
-  border: 1px solid #ccc;
-  box-shadow: 0px 2px 7px rgba(0,0,0,0.12);
-  transition: 0.15s;
-}
-
-.product-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0px 4px 12px rgba(0,0,0,0.18);
-}
-
-.product-image {
-  width: 100%;
-  height: 120px;
-  background: #e5e7eb;
-  border-radius: 8px;
-  margin-bottom: 12px;
-  background-size: cover;
-  background-position: center;
-}
-
-.product-card h3 {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.product-card p {
-  font-size: 15px;
-  color: #444;
-}
-
-.product-card button {
-  padding: 7px 14px;
-  border: 2.5px outset buttonborder;
-  border-radius: 7px;
-  background-color: #49acad;
-  color: white;
-  cursor: pointer;
-  margin: 5px auto;
-  display: block;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

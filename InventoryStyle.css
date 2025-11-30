@@ -19,7 +19,7 @@ body {
 }
 
 #topNav .logo img {
-  width: 200px;
+  width: 400px;
     height: 250px;
     scale: 50%;
     display: block;
@@ -126,6 +126,7 @@ body {
   margin: 5px auto;
   display: block;
 }
+
 
 
 

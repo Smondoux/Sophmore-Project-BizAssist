@@ -27,7 +27,7 @@ body {
 
 #topButtons {
   display: flex;                  /* correct flex display */
-  justify-content: space-between; /* spread buttons across the header */
+  justify-content: space-evenly; /* spread buttons across the header */
   margin-left: auto;              
   width: 100%;                    
   gap: 20px;                      /* space between buttons */
@@ -127,6 +127,7 @@ body {
   margin: 5px auto;
   display: block;
 }
+
 
 
 

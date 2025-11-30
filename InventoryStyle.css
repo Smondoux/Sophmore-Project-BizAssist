@@ -24,20 +24,23 @@ body {
 
 #topButtons {
   display: flex;
-  justify-content: space-between;
-  gap: 10px;
+  justify-content: space-between; /* spread buttons across the header */
+  align-items: center;             /* vertically center buttons */
+  width: 100%;                     /* make the button container span full width */
+  gap: 10px;                       /* optional spacing between buttons */
 }
 
 .top-btn {
-  padding: 7px 14px;
-    border: 2.5px outset buttonborder;
-    border-radius: 7px;
-    color: 	white;
-    background-color: #49acad;
-    text-decoration: none;
-    margin: 5px;
-    display: inline-block;
-    gap: 1px;
+  flex: 1;                         /* let each button take equal space */
+  text-align: center;              /* center the text inside each button */
+  padding: 10px 0;                 /* increase height for a taller button */
+  border: 2.5px outset buttonborder;
+  border-radius: 7px;
+  color: white;
+  background-color: #49acad;
+  text-decoration: none;
+  margin: 0 5px;                   /* small horizontal spacing */
+  cursor: pointer;
 }
 
 /* NEW: Controls container for Add/Reset buttons */
@@ -119,4 +122,5 @@ body {
   margin: 5px auto;
   display: block;
 }
+
 

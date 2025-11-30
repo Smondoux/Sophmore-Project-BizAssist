@@ -48,16 +48,17 @@ body {
   cursor: pointer;
 }
 
-/* NEW: Controls container for Add/Reset buttons */
 #invControls {
   display: flex;
-  justify-content: center;
-  gap: 10px;
+  justify-content: space-evenly; /* same as top buttons */
+  align-items: center;           /* vertical alignment */
+  width: 100%;                   /* full width like topButtons */
+  gap: 20px;                     /* same spacing between buttons */
   margin: 20px 0;
 }
 
 #invControls .button {
-   padding: 7px 14px;               /* same as a.button */
+  padding: 7px 14px;
   border: 2.5px outset buttonborder;
   border-radius: 7px;
   color: white;
@@ -65,8 +66,7 @@ body {
   text-decoration: none;
   margin: 5px;
   display: inline-block;
-  gap: 1px;
-  text-align: center;              /* center text */
+  text-align: center;
   cursor: pointer;
 }
 
@@ -131,6 +131,7 @@ body {
   margin: 5px auto;
   display: block;
 }
+
 
 
 

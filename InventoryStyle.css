@@ -24,12 +24,14 @@ body {
   gap: 10px;
 }
 
+
 #topButtons {
-  display: row;
+  display: flex;                  /* correct flex display */
   justify-content: space-between; /* spread buttons across the header */
-  margin-left: auto;             
-  width: 100%;                     /* full width container */
-  gap: 20px;                       /* optional spacing */
+  margin-left: auto;              
+  width: 100%;                    
+  gap: 20px;                      /* space between buttons */
+  align-items: center;            /* vertically center buttons */
 }
 
 .top-btn {
@@ -125,6 +127,7 @@ body {
   margin: 5px auto;
   display: block;
 }
+
 
 
 

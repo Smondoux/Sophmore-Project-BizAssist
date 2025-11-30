@@ -22,7 +22,6 @@ body {
   width: 400px;
     height: 250px;
     scale: 50%;
-    display: block;
 }
 
 #topButtons {
@@ -126,6 +125,7 @@ body {
   margin: 5px auto;
   display: block;
 }
+
 
 
 

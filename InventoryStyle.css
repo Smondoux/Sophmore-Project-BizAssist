@@ -25,7 +25,7 @@ body {
 #topButtons {
   display: flex;
   justify-content: space-between; /* spread buttons across the header */
-  align-items: center;             /* vertically center buttons */
+  align-items: right;             /* vertically center buttons */
   width: 100%;                     /* full width container */
   gap: 10px;                       /* optional spacing */
 }
@@ -123,6 +123,7 @@ body {
   margin: 5px auto;
   display: block;
 }
+
 
 
 

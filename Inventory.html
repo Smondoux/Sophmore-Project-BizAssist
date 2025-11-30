@@ -1,38 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inventory System</title>
-  <link rel="stylesheet" href="InventoryStyle.css" />
+  <link rel="stylesheet" href="InventoryStyle.css">
 </head>
 
 <body>
 
+  <!-- TOP NAVIGATION -->
   <div id="topNav">
-      <div class="logo">
-          <img src="images/bizLogo.png" alt="BizAssist Logo" />
-      </div>
-
-      <div id="topButtons">
-          <a href="Inventory.html" class="top-btn">Inventory</a>
-          <a href="sales.html" class="top-btn">Sales</a>
-          <a href="index.html" class="top-btn">Customers</a>
-          <a href="bizRep.html" class="top-btn">Reports</a>
+      <div class="nav-buttons">
+          <a href="Inventory.html" class="topNavBtn">Inventory</a>
+          <a href="sales.html" class="topNavBtn">Sales</a>
+          <a href="index.html" class="topNavBtn">Customers</a>
+          <a href="bizRep.html" class="topNavBtn">Reports</a>
       </div>
   </div>
 
-  <!-- New button container (close together, centered, styled) -->
-  <div id="invControls">
-      <button id="addItemBtn" class="button">Add Item</button>
-      <button id="resetBtn" class="button">Reset Inventory</button>
+  <!-- LOGO -->
+  <div class="logo">
+      <img src="images/bizLogo.png" alt="BizAssist Logo">
   </div>
 
+  <!-- CONTROL BUTTONS -->
+  <div id="controls">
+      <button id="addItemBtn">Add Item</button>
+      <button id="resetBtn">Reset Inventory</button>
+  </div>
+
+  <!-- PRODUCT GRID -->
   <div id="productGrid"></div>
 
   <script src="InventoryJava.js"></script>
-  
+
 </body>
 </html>
-
-
